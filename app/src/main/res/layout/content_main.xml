@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/app_bar_main">
+
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1c71ff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="237dp"
+            android:background="#f3f8fe"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="황다현님, 안녕하세요!"
+            android:textColor="#afd3ff"
+            android:textSize="11dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_userDutchMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_white_24dp"
+            android:text="3,000,000,000 원"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_userName"
+            app:layout_constraintTop_toBottomOf="@+id/txt_userName" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19.50dp"
+            android:text="언제 어디서나 바로바로 손쉽게"
+            android:textColor="#ffffff"
+            android:textSize="22.50dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="@+id/txt_userDutchMoney"
+            app:layout_constraintTop_toBottomOf="@+id/txt_userDutchMoney" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10.50dp"
+            android:src="@drawable/dutchpay_logo_txt"
+            app:layout_constraintLeft_toLeftOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <ImageButton
+            android:id="@+id/imageView4"
+            android:layout_width="166.25dp"
+            android:layout_height="133dp"
+            android:layout_marginTop="16.5dp"
+            android:src="@drawable/start_payment"
+            app:layout_constraintLeft_toLeftOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="166.25dp"
+            android:layout_height="133dp"
+            android:src="@drawable/start_start_dutchpay"
+            app:layout_constraintLeft_toRightOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="31.25dp"
+            android:text="아이유와 함께 하는 더치페이 할인 이벤트"
+            android:textColor="#383838"
+            android:textSize="13.50dp"
+            app:layout_constraintLeft_toLeftOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+        <ImageButton
+            android:layout_width="77dp"
+            android:layout_height="15.75dp"
+            android:layout_marginLeft="16.25dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/start_view_event_btn"
+            app:layout_constraintLeft_toRightOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="@+id/textView7" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_margin="14dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_mainVP"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_mainTL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            tools:ignore="MissingPrefix" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

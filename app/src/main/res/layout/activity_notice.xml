@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f6f6"
+    tools:context=".NoticeActivity">
+
+    <ImageView
+        android:id="@+id/imageView_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="96dp"
+        android:src="@drawable/notice_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="278.50dp"
+        android:elevation="20dp"
+        android:layout_height="202.25dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="13.25dp"
+        android:background="@drawable/outline_round_beforelayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_1"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="17.50dp"
+            android:layout_marginTop="23dp"
+            android:text="공지사항"
+            android:textColor="#101010"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18.25dp"
+            android:text="안녕하세요.\n더치페이 코리아입니다.\n더치페이 APP 오픈 기념 행운의 &quot;빅 이벤트&quot;에 참여하세요. "
+            android:textColor="#101010"
+            android:textSize="9.5dp"
+            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <ImageButton
+            android:id="@+id/button"
+            android:layout_width="117.75dp"
+            android:layout_height="36.50dp"
+            android:layout_marginTop="55dp"
+            android:src="@drawable/close_btn"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <ImageButton
+            android:layout_width="117.75dp"
+            android:layout_height="36.50dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="55dp"
+            android:src="@drawable/notice_check_btn"
+            app:layout_constraintStart_toEndOf="@+id/button"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
