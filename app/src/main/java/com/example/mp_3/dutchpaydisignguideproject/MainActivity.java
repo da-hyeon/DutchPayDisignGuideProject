@@ -1,25 +1,34 @@
 package com.example.mp_3.dutchpaydisignguideproject;
 
+import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.mp_3.dutchpaydisignguideproject.Adapter.EventImageSliderAdapter;
 import com.example.mp_3.dutchpaydisignguideproject.Fragment.LoginFragment;
+import com.example.mp_3.dutchpaydisignguideproject.Fragment.Register_FormFragment;
+import com.example.mp_3.dutchpaydisignguideproject.Fragment.Register_PaymentPasswordFormFragment;
+import com.example.mp_3.dutchpaydisignguideproject.Fragment.Register_SuccessFragment;
 import com.example.mp_3.dutchpaydisignguideproject.Fragment.Register_TermsConditionsAgreementFragment;
+import com.example.mp_3.dutchpaydisignguideproject.Interface.MoveToFragment;
+import com.example.mp_3.dutchpaydisignguideproject.Model.User;
+import com.example.mp_3.dutchpaydisignguideproject.R;
 import com.example.mp_3.dutchpaydisignguideproject.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MoveToFragment {
 
     private ActivityMainBinding mMainBinding;
 
@@ -27,13 +36,17 @@ public class MainActivity extends AppCompatActivity {
 
     private LoginFragment mLoginFragment;
     private Register_TermsConditionsAgreementFragment mRegister_termsConditionsAgreementFragment;
+    private Register_FormFragment mRegister_formFragment;
+    private Register_PaymentPasswordFormFragment mRegister_paymentPasswordFormFragment;
+    private Register_SuccessFragment mRegister_successFragment;
 
-    //홈 화면 체크변수
-    private boolean mIsHome;
+    // false - 비로그인 , true - 로그인
+    private boolean mLoginState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //데이터바인딩 Activity등록
         mMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mMainBinding.setActivity(this);
 
@@ -47,7 +60,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 객체생성 및 데이터초기화
      */
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void initData() {
+
+        User user = User.getInstance();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mMainBinding.drawerLayout, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -65,18 +81,52 @@ public class MainActivity extends AppCompatActivity {
         mMainBinding.Appbar.contentMain.vpMainVP.setAdapter(mEventImageSliderAdapter);
 
         //dot표시
-        mMainBinding.Appbar.contentMain.tabMainTL.setupWithViewPager( mMainBinding.Appbar.contentMain.vpMainVP, true);
+        mMainBinding.Appbar.contentMain.tabMainTL.setupWithViewPager(mMainBinding.Appbar.contentMain.vpMainVP, true);
 
         //Fragment
         mLoginFragment = new LoginFragment();
         mRegister_termsConditionsAgreementFragment = new Register_TermsConditionsAgreementFragment();
+        mRegister_formFragment = new Register_FormFragment();
+        mRegister_paymentPasswordFormFragment = new Register_PaymentPasswordFormFragment();
+        mRegister_successFragment = new Register_SuccessFragment();
 
+        if (mLoginState) {
+            mMainBinding.navigationView.layoutLogin.setVisibility(View.GONE);
+
+            mMainBinding.Appbar.contentMain.txtUserName.setText(user.getUserName() + "님, 안녕하세요!");
+            mMainBinding.Appbar.contentMain.txtUserName.setVisibility(View.VISIBLE);
+
+            mMainBinding.Appbar.contentMain.txtUserDutchMoney.setText(String.format("%,d", Integer.parseInt(user.getUserDutchMoney())) + "원");
+            mMainBinding.Appbar.contentMain.txtUserDutchMoney.setVisibility(View.VISIBLE);
+
+            mMainBinding.Appbar.contentMain.imageMainLogo.setVisibility(View.GONE);
+            mMainBinding.Appbar.contentMain.txtMainLogoTitle.setVisibility(View.GONE);
+        } else {
+            mMainBinding.navigationView.layoutLogin.setVisibility(View.VISIBLE);
+
+            mMainBinding.Appbar.contentMain.txtUserName.setVisibility(View.GONE);
+            mMainBinding.Appbar.contentMain.txtUserDutchMoney.setVisibility(View.INVISIBLE);
+            mMainBinding.Appbar.contentMain.imageMainLogo.setVisibility(View.VISIBLE);
+            mMainBinding.Appbar.contentMain.txtMainLogoTitle.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
      * 클릭 이벤트 처리
      */
     private void onClickListener() {
+
+        //뒤로가기 버튼
+        mMainBinding.Appbar.imageLeftArrow.setOnClickListener(v -> {
+            super.onBackPressed();
+
+            if (getSupportFragmentManager().getFragments().isEmpty()) {
+                mMainBinding.Appbar.txtAppBar.setText("");
+                mMainBinding.Appbar.imageLeftMenu.setVisibility(View.VISIBLE);
+                mMainBinding.Appbar.imageLeftArrow.setVisibility(View.GONE);
+            }
+
+        });
 
         //메뉴버튼
         mMainBinding.Appbar.imageMenu.setOnClickListener(v -> mMainBinding.drawerLayout.openDrawer(GravityCompat.END));
@@ -95,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         mMainBinding.navigationView.imageLogin.setOnClickListener(v -> popLoginFragment());
 
         //회원가입 버튼
-        mMainBinding.navigationView.imageRegister.setOnClickListener(v -> popRegisterFragment());
+        mMainBinding.navigationView.imageRegister.setOnClickListener(v -> moveToTermsConditionsAgreementFragment());
 
         //단독결제 버튼
         mMainBinding.navigationView.imageSoloPay.setOnClickListener(v ->
@@ -128,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
         //고객센터 버튼
         mMainBinding.navigationView.imageCustomerService.setOnClickListener(v ->
                 mMainBinding.drawerLayout.closeDrawer(GravityCompat.END));
+
+
     }
 
     /**
@@ -135,53 +187,95 @@ public class MainActivity extends AppCompatActivity {
      */
     private void popLoginFragment() {
         mMainBinding.Appbar.txtAppBar.setText("로그인");
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (mLoginFragment.isAdded()) {
-            fragmentTransaction.show(mLoginFragment);
-        } else {
-            fragmentTransaction.add(R.id.content_main, mLoginFragment, LoginFragment.class.getName());
-        }
 
-        if (mRegister_termsConditionsAgreementFragment.isAdded()) {
-            fragmentTransaction.hide(mRegister_termsConditionsAgreementFragment);
-        }
-        fragmentTransaction.commit();
+        mMainBinding.Appbar.imageLeftMenu.setVisibility(View.GONE);
+        mMainBinding.Appbar.imageLeftArrow.setVisibility(View.VISIBLE);
+
+        moveToFragment(mLoginFragment, true);
         mMainBinding.drawerLayout.closeDrawer(GravityCompat.END);
     }
 
     /**
      * 회원가입(약관동의) 화면 열기
      */
-    private void popRegisterFragment() {
+    @Override
+    public void moveToTermsConditionsAgreementFragment() {
         mMainBinding.Appbar.txtAppBar.setText("회원가입");
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if (mRegister_termsConditionsAgreementFragment.isAdded()) {
-            fragmentTransaction.show(mRegister_termsConditionsAgreementFragment);
-        } else {
-            fragmentTransaction.add(R.id.content_main, mRegister_termsConditionsAgreementFragment, Register_TermsConditionsAgreementFragment.class.getName());
+
+        mMainBinding.Appbar.imageLeftMenu.setVisibility(View.GONE);
+        mMainBinding.Appbar.imageLeftArrow.setVisibility(View.VISIBLE);
+
+        moveToFragment(mRegister_termsConditionsAgreementFragment, true);
+        mMainBinding.drawerLayout.closeDrawer(GravityCompat.END);
+    }
+
+    /**
+     * 회원가입 폼 화면 열기
+     */
+    @Override
+    public void moveToFormFragment() {
+        moveToFragment(mRegister_formFragment, false);
+    }
+
+    /**
+     * 결제비밀번호 설정화면 열기
+     */
+    @Override
+    public void moveToPaymentPasswordFragment() {
+        moveToFragment(mRegister_paymentPasswordFormFragment, false);
+    }
+
+    /**
+     * 회원가입 완료화면 열기
+     */
+    @Override
+    public void moveToSuccessFragment() {
+        moveToFragment(mRegister_successFragment, true);
+    }
+
+
+    /**
+     * 홈 화면 열기
+     */
+    @Override
+    public void moveToHome(boolean state) {
+        mMainBinding.Appbar.txtAppBar.setText("");
+        mLoginState = state;
+        goMain();
+        initData();
+    }
+
+    /**
+     * 프래그먼트 화면 전환
+     */
+    public void moveToFragment(Fragment fragment, boolean deleteCheck) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        //메인 프래그먼트일때 Fragment 모든 스택 제거.
+        if (deleteCheck) {
+            fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
-        if (mLoginFragment.isAdded()) {
-            fragmentTransaction.hide(mLoginFragment);
-        }
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.content_main, fragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        mMainBinding.drawerLayout.closeDrawer(GravityCompat.END);
     }
 
     /**
      * 홈으로 가기
      */
     private void goMain() {
-        mMainBinding.Appbar.txtAppBar.setText("");
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            if (!fragment.isAdded() || fragment.isHidden())
-                continue;
-
-            fragmentTransaction.remove(fragment).commit();
-            mIsHome = false;
+        //프래그먼트가 없으면 리턴
+        if (getSupportFragmentManager().getFragments().isEmpty()) {
+            return;
         }
+
+        mMainBinding.Appbar.imageLeftMenu.setVisibility(View.VISIBLE);
+        mMainBinding.Appbar.imageLeftArrow.setVisibility(View.GONE);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
     /**
@@ -189,21 +283,22 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        //메인화면 체크
-        mIsHome = true;
-
         //Drawer 열려있으면 닫기
         if (mMainBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
             mMainBinding.drawerLayout.closeDrawer(GravityCompat.END);
-            mIsHome = false;
         } else {
-            //메인으로가기
-            goMain();
-        }
+            if (getSupportFragmentManager().getFragments().isEmpty()) {
+                exitApp();
+            } else {
+                super.onBackPressed();
 
-        //앱 종료
-        if (mIsHome) {
-            exitApp();
+                //한번 더 확인
+                if (getSupportFragmentManager().getFragments().isEmpty()) {
+                    mMainBinding.Appbar.txtAppBar.setText("");
+                    mMainBinding.Appbar.imageLeftMenu.setVisibility(View.VISIBLE);
+                    mMainBinding.Appbar.imageLeftArrow.setVisibility(View.GONE);
+                }
+            }
         }
     }
 
@@ -220,4 +315,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        initData();
+    }
 }

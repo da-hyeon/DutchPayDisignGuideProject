@@ -8,17 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mp_3.dutchpaydisignguideproject.R;
-import com.example.mp_3.dutchpaydisignguideproject.databinding.FragmentViewAllTermsConditionsBinding;
+import com.example.mp_3.dutchpaydisignguideproject.databinding.FragmentRegisterViewAllTermsConditionsBinding;
 
 
-public class ViewAllTermsConditionsFragment extends Fragment {
+public class Register_ViewAllTermsConditionsFragment extends Fragment {
 
-    FragmentViewAllTermsConditionsBinding mBinding;
+    private FragmentRegisterViewAllTermsConditionsBinding mBinding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_view_all_terms_conditions, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register_view_all_terms_conditions, container, false);
         View view = mBinding.getRoot();
 
         return view;
