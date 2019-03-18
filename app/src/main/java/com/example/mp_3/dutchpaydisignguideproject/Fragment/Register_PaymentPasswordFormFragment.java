@@ -26,7 +26,6 @@ public class Register_PaymentPasswordFormFragment extends Fragment {
 
     private String mPassword;
 
-    private View mNumberViews[];
     private TextView mNumberTextViews[];
     private ImageView mDotImage[];
 
@@ -76,20 +75,6 @@ public class Register_PaymentPasswordFormFragment extends Fragment {
         }
         Collections.shuffle(ranNumber);
 
-        //버튼 영역
-        mNumberViews = new View[]{
-                mBinding.viewPw0,
-                mBinding.viewPw1,
-                mBinding.viewPw2,
-                mBinding.viewPw3,
-                mBinding.viewPw4,
-                mBinding.viewPw5,
-                mBinding.viewPw6,
-                mBinding.viewPw7,
-                mBinding.viewPw8,
-                mBinding.viewPw9
-        };
-
         //숫자데이터
         mNumberTextViews = new TextView[]{
                 mBinding.txtPw0,
@@ -125,9 +110,9 @@ public class Register_PaymentPasswordFormFragment extends Fragment {
     private void onClickListener() {
 
         //숫자 버튼
-        for (int i = 0; i < mNumberViews.length; i++) {
+        for (int i = 0; i < mNumberTextViews.length; i++) {
             int finalI = i;
-            mNumberViews[i].setOnClickListener(v -> inputPassword(mNumberTextViews[finalI].getText().toString()));
+            mNumberTextViews[i].setOnClickListener(v -> inputPassword(mNumberTextViews[finalI].getText().toString()));
         }
 
         //삭제 버튼
