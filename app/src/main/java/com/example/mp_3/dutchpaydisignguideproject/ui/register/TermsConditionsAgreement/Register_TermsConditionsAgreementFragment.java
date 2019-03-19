@@ -176,16 +176,17 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
      */
     @Override
     public void moveFragment() {
-        mMainPresenter.moveFragment(new Register_FormFragment(), false, null, true);
+        mMainPresenter.moveFragment(new Register_FormFragment(), false, null);
     }
 
     @Override
     public void moveAllView(Bundle bundle) {
-        mMainPresenter.moveFragment(new Register_ViewAllTermsConditionsFragment(), false, bundle, true);
+        mMainPresenter.moveFragment(new Register_ViewAllTermsConditionsFragment(), false, bundle);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        initData();
     }
 }

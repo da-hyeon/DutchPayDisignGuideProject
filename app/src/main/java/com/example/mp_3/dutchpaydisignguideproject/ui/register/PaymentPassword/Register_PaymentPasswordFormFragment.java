@@ -141,7 +141,7 @@ public class Register_PaymentPasswordFormFragment extends Fragment implements Re
 
     @Override
     public void SuccessFully() {
-        mMainPresenter.moveFragment(new Register_SuccessFragment(), true, null, true);
+        mMainPresenter.moveFragment(new Register_SuccessFragment(), true, null);
     }
 
     @Override

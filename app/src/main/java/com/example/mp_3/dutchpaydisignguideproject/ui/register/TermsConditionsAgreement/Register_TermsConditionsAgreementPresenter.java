@@ -53,9 +53,15 @@ public class Register_TermsConditionsAgreementPresenter implements Register_Term
     public void allTermsConditionsButtonCheck(boolean state) {
 
         if (state) {
+            for(int i = 0; i < mTermsConditionsAgreementChecked.length; i++){
+                mTermsConditionsAgreementChecked[i] = false;
+            }
             mView.changeAllTermsConditionsButton(false);
             mView.changeAllTermsConditions(false);
         } else {
+            for(int i = 0; i < mTermsConditionsAgreementChecked.length; i++){
+                mTermsConditionsAgreementChecked[i] = true;
+            }
             mView.changeAllTermsConditionsButton(true);
             mView.changeAllTermsConditions(true);
         }
@@ -107,7 +113,6 @@ public class Register_TermsConditionsAgreementPresenter implements Register_Term
         Bundle bundle = new Bundle();
         bundle.putInt("num", index);
         bundle.putBooleanArray("checked", mTermsConditionsAgreementChecked);
-
         mView.moveAllView(bundle);
     }
 

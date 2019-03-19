@@ -38,7 +38,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         mBinding.imageAutoLoginCheck.setOnClickListener(v -> mPresenter.currentCheckState(mBinding.imageAutoLoginCheck));
 
         //회원가입 버튼
-        mBinding.imageUserRegister.setOnClickListener(v -> mMainPresenter.moveFragment(new Register_TermsConditionsAgreementFragment(), true, null, true)
+        mBinding.imageUserRegister.setOnClickListener(v -> mMainPresenter.moveFragment(new Register_TermsConditionsAgreementFragment(), true, null)
         );
 
         //로그인버튼

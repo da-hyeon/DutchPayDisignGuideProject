@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             mPresenter.titleChange("로그인");
             mPresenter.isMain(false);
-            mPresenter.moveFragment(mLoginFragment, true, null , true);
+            mPresenter.moveFragment(mLoginFragment, true, null);
             mMainBinding.drawerLayout.closeDrawer(GravityCompat.END);
 
         });
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             mPresenter.titleChange("로그인");
             mPresenter.isMain(false);
-            mPresenter.moveFragment(mRegister_termsConditionsAgreementFragment, true, null , true);
+            mPresenter.moveFragment(mRegister_termsConditionsAgreementFragment, true, null);
             mMainBinding.drawerLayout.closeDrawer(GravityCompat.END);
 
         });
@@ -187,15 +187,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void onBackPressed() {
 
         List fragmentList = getSupportFragmentManager().getFragments();
-        boolean enter = false;
-        for(int i = 0 ; i < fragmentList.size(); i++){
-            if ( fragmentList.get(i) instanceof Register_ViewAllTermsConditionsFragment) {
-                ((Register_ViewAllTermsConditionsFragment)fragmentList.get(i)).onBackPress();
-                enter = true;
+        for (int i = 0; i < fragmentList.size(); i++) {
+            if (fragmentList.get(i) instanceof Register_ViewAllTermsConditionsFragment) {
+                ((Register_ViewAllTermsConditionsFragment) fragmentList.get(i)).onBackPress();
+                return;
             }
         }
-        if(enter)
-            return;
 
         //Drawer 열려있으면 닫기
         if (mMainBinding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
@@ -227,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void appBarIconChange(boolean isMain) {
-        if(isMain) {
+        if (isMain) {
             mMainBinding.Appbar.imageLeftMenu.setVisibility(View.VISIBLE);
             mMainBinding.Appbar.imageLeftArrow.setVisibility(View.GONE);
         } else {

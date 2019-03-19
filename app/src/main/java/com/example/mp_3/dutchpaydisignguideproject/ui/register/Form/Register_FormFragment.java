@@ -28,7 +28,7 @@ public class Register_FormFragment extends Fragment {
 
         mBinding.btnNext.setOnClickListener(v ->
                 mMainPresenter.moveFragment(new Register_PaymentPasswordFormFragment()
-                        , false, null, true)
+                        , false, null)
         );
         return view;
     }

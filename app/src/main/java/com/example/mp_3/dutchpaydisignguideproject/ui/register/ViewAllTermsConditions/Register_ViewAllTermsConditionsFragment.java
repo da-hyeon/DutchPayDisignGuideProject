@@ -1,5 +1,6 @@
 package com.example.mp_3.dutchpaydisignguideproject.ui.register.ViewAllTermsConditions;
 
+import android.annotation.SuppressLint;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -29,7 +30,6 @@ public class Register_ViewAllTermsConditionsFragment extends Fragment {
 
     private int mTermsConditionsNumber;
     private boolean mTermsConditionsChecked[];
-    private Register_TermsConditionsAgreementFragment mRegister_termsConditionsAgreementFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -81,8 +81,6 @@ public class Register_ViewAllTermsConditionsFragment extends Fragment {
         } else {
             mBinding.agreeCheck.setImageResource(R.drawable.agree_off);
         }
-
-        mRegister_termsConditionsAgreementFragment = new Register_TermsConditionsAgreementFragment();
     }
 
     /**
@@ -109,8 +107,6 @@ public class Register_ViewAllTermsConditionsFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putInt("num" , mTermsConditionsNumber);
         bundle.putBooleanArray("checked", mTermsConditionsChecked);
-
-        mMainPresenter.moveFragment(new Register_TermsConditionsAgreementFragment(), false , bundle, false);
-
+        mMainPresenter.moveFragment(new Register_TermsConditionsAgreementFragment(), true , bundle);
     }
 }

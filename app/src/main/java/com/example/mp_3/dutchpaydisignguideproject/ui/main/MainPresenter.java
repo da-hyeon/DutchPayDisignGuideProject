@@ -34,7 +34,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void moveFragment( Fragment fragment, boolean isMainFragment , Bundle bundle , boolean isAddToStack) {
+    public void moveFragment( Fragment fragment, boolean isMainFragment , Bundle bundle ) {
         //메인 프래그먼트일때 Fragment 모든 스택 제거.
         if (isMainFragment) {
             mFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -43,9 +43,8 @@ public class MainPresenter implements MainContract.Presenter {
         if(bundle != null) {
             fragment.setArguments(bundle);
         }
-        if(isAddToStack){
-            fragmentTransaction.addToBackStack(null);
-        }
+
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.content_main, fragment);
         fragmentTransaction.commit();
     }

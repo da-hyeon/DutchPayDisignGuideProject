@@ -16,7 +16,7 @@ public interface MainContract {
     }
 
     interface Presenter{
-        void moveFragment(Fragment fragment, boolean isMainFragment, Bundle bundle , boolean isAddToStack);
+        void moveFragment(Fragment fragment, boolean isMainFragment, Bundle bundle);
         void titleChange(String title);
         void isMain( boolean isMain );
         void exitApp();
