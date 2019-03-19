@@ -5,7 +5,7 @@
     <data>
         <variable
             name="activity"
-            type="com.example.mp_3.dutchpaydisignguideproject.MainActivity"/>
+            type="com.example.mp_3.dutchpaydisignguideproject.ui.main.MainActivity"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

@@ -331,8 +331,8 @@
             android:scaleType="fitXY"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
 
-        <com.kakao.usermgmt.LoginButton
-            android:id="@+id/imageView_kakao"
+        <ImageView
+            android:id="@+id/imageView_kakaogo"
             android:layout_width="match_parent"
             android:layout_height="41.50dp"
             android:layout_marginTop="8.50dp"
@@ -340,6 +340,8 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/login_kakao_login"
             app:layout_constraintTop_toBottomOf="@+id/imageView_register"/>
 
         <TextView
@@ -350,7 +352,7 @@
             android:layout_marginTop="9.50dp"
             android:textSize="8.50dp"
             app:layout_constraintLeft_toLeftOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/imageView_kakao"/>
+            app:layout_constraintTop_toBottomOf="@+id/imageView_kakaogo"/>
 
     </android.support.constraint.ConstraintLayout>
 

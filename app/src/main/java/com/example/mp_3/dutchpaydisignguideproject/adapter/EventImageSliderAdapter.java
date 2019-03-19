@@ -1,4 +1,4 @@
-package com.example.mp_3.dutchpaydisignguideproject.Adapter;
+package com.example.mp_3.dutchpaydisignguideproject.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

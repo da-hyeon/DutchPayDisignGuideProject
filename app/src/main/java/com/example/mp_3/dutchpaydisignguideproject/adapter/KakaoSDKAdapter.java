@@ -1,9 +1,9 @@
-package com.example.mp_3.dutchpaydisignguideproject.Adapter;
+package com.example.mp_3.dutchpaydisignguideproject.adapter;
 
 import android.app.Activity;
 import android.content.Context;
 
-import com.example.mp_3.dutchpaydisignguideproject.GlobalApplication;
+import com.example.mp_3.dutchpaydisignguideproject.ui.GlobalApplication;
 import com.kakao.auth.ApprovalType;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.IApplicationConfig;

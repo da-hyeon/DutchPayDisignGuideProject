@@ -1,6 +1,5 @@
-package com.example.mp_3.dutchpaydisignguideproject.Fragment;
+package com.example.mp_3.dutchpaydisignguideproject.ui.register.PaymentPassword;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,36 +11,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mp_3.dutchpaydisignguideproject.Interface.MoveToFragment;
+import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainContract;
+import com.example.mp_3.dutchpaydisignguideproject.ui.register.Success.Register_SuccessFragment;
+import com.example.mp_3.dutchpaydisignguideproject.ui.register.TermsConditionsAgreement.Register_TermsConditionsAgreementFragment;
+import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainPresenter;
 import com.example.mp_3.dutchpaydisignguideproject.R;
 import com.example.mp_3.dutchpaydisignguideproject.databinding.FragmentRegisterPaymentPasswordFormBinding;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Register_PaymentPasswordFormFragment extends Fragment {
+public class Register_PaymentPasswordFormFragment extends Fragment implements Register_PaymentPasswordFormContract.View {
 
     private FragmentRegisterPaymentPasswordFormBinding mBinding;
-    private MoveToFragment mMoveToFragment;
 
     private String mPassword;
 
     private TextView mNumberTextViews[];
     private ImageView mDotImage[];
 
-    /**
-     * Activity 참조 얻기
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
 
-        if (context instanceof MoveToFragment) {
-            mMoveToFragment = (MoveToFragment) context;
-        } else {
-            throw new RuntimeException(context.toString());
-        }
-    }
+    private Register_PaymentPasswordFormContract.Presenter mPresenter;
+    private MainContract.Presenter mMainPresenter;
+
 
     /**
      * onCreateView
@@ -55,18 +47,34 @@ public class Register_PaymentPasswordFormFragment extends Fragment {
         //객체생성 및 데이터 초기화
         initData();
 
-        //클릭 메소드 등록
-        onClickListener();
+        //숫자 버튼
+        for (int i = 0; i < mNumberTextViews.length; i++) {
+            int finalI = i;
+            mNumberTextViews[i].setOnClickListener(v->{
+                mPresenter.clickNumberButton(mPassword, mNumberTextViews[finalI].getText().toString());
+                mPresenter.inputImageUpdate(mPassword , mDotImage);
+            });
+        }
+
+        //삭제 버튼
+        mBinding.viewDelete.setOnClickListener(v -> mPresenter.clickDeleteButton());
+
+        //확인 버튼
+        mBinding.viewOk.setOnClickListener(v -> mPresenter.clickOKButton(mPassword));
 
         return view;
     }
-
 
     /**
      * 객체생성 및 데이터초기화
      */
     private void initData() {
+
+        mMainPresenter = new MainPresenter(getContext(), getFragmentManager());
+
         mPassword = "";
+
+        mPresenter = new Register_PaymentPasswordFormContractPresenter(this);
 
         //난수생성
         ArrayList<Integer> ranNumber = new ArrayList<>();
@@ -104,60 +112,40 @@ public class Register_PaymentPasswordFormFragment extends Fragment {
         }
     }
 
-    /**
-     * 클릭 이벤트 처리
-     */
-    private void onClickListener() {
-
-        //숫자 버튼
-        for (int i = 0; i < mNumberTextViews.length; i++) {
-            int finalI = i;
-            mNumberTextViews[i].setOnClickListener(v -> inputPassword(mNumberTextViews[finalI].getText().toString()));
-        }
-
-        //삭제 버튼
-        mBinding.viewDelete.setOnClickListener(v -> deletePassword());
-
-        //확인 버튼
-        mBinding.viewOk.setOnClickListener(v -> {
-            if (mPassword.length() == 6) {
-                mMoveToFragment.moveToSuccessFragment();
-            } else {
-                Toast.makeText(getContext(), "결제 비밀번호는 6자리 입니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    /**
-     * 비밀번호 입력
-     */
-    private void inputPassword(String number) {
-        if (mPassword.length() < 6) {
-            mPassword += number;
-            Toast.makeText(getContext(), mPassword, Toast.LENGTH_SHORT).show();
-            for (int i = 0; i < mDotImage.length; i++) {
-                if (i < mPassword.length()) {
-                    mDotImage[i].setImageResource(R.drawable.password_on);
-                } else {
-                    mDotImage[i].setImageResource(R.drawable.password_off);
-                }
-            }
-        }
-    }
-
-    /**
-     * 비밀번호 초기화
-     */
-    private void deletePassword() {
-        mPassword = "";
-        for (ImageView imageViews : mDotImage) {
-            imageViews.setImageResource(R.drawable.password_off);
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
         initData();
+    }
+
+    @Override
+    public void currentInputNumber(String number) {
+        mPassword = number;
+       // Toast.makeText(getContext(), mPassword, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void dotImagesUpdate(ImageView imageView, boolean checkState) {
+        if(checkState){
+            imageView.setImageResource(R.drawable.password_on);
+        } else {
+            imageView.setImageResource(R.drawable.password_off);
+        }
+    }
+
+    @Override
+    public void clearPassword() {
+        mPassword = "";
+        mPresenter.inputImageUpdate(mPassword, mDotImage);
+    }
+
+    @Override
+    public void SuccessFully() {
+        mMainPresenter.moveFragment(new Register_SuccessFragment(), true, null, true);
+    }
+
+    @Override
+    public void Fail() {
+        Toast.makeText(getContext(), "결제 비밀번호는 6자리 입니다.", Toast.LENGTH_SHORT).show();
     }
 }

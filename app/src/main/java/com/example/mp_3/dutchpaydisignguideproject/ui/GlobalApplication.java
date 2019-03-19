@@ -1,9 +1,9 @@
-package com.example.mp_3.dutchpaydisignguideproject;
+package com.example.mp_3.dutchpaydisignguideproject.ui;
 
 import android.app.Activity;
 import android.app.Application;
 
-import com.example.mp_3.dutchpaydisignguideproject.Adapter.KakaoSDKAdapter;
+import com.example.mp_3.dutchpaydisignguideproject.adapter.KakaoSDKAdapter;
 import com.kakao.auth.KakaoSDK;
 
 public class GlobalApplication extends Application {
