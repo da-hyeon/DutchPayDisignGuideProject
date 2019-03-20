@@ -29,5 +29,7 @@ public interface Register_TermsConditionsAgreementContract {
         void kakaoButtonClick(boolean state);
 
         boolean comparisonObjects(ImageView[] imageViews , ImageView imageView , @DrawableRes int id);
+
+
     }
 }

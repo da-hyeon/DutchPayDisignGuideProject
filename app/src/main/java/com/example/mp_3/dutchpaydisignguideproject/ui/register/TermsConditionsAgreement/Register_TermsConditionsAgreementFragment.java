@@ -39,7 +39,6 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
         View view = mBinding.getRoot();
 
 
-
         //객체생성 및 데이터 초기화
         initData();
 
@@ -111,8 +110,6 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
         mPresenter.refreshData(getArguments());
         mPresenter.initTermsConditionsButtonCheck(image_termsConditions);
         mPresenter.allChecked(mPresenter.comparisonObjects(image_termsConditions, null, R.drawable.agree_on));
-
-
     }
 
     /**

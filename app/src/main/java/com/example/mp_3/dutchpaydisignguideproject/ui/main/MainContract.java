@@ -8,20 +8,30 @@ public interface MainContract {
 
 
     interface View{
-        void titleChange(String title);
-        void appBarIconChange(boolean isMain);
         void showToast(String content);
+        void showUserInfo(String userName , String userDutchMoney , boolean state);
+
+        void hideMenu();
+        void changeTitle(String title);
+        void changeAppBarIcon(boolean isMain);
         void finish();
-        void viewUpdate();
+        void updateView();
+
+        void backwardMovement();
     }
 
     interface Presenter{
-        void moveFragment(Fragment fragment, boolean isMainFragment, Bundle bundle);
-        void titleChange(String title);
-        void isMain( boolean isMain );
-        void exitApp();
+        void loginState();
 
-        //모든 프래그먼트 닫기
+        void clickHome();
+        void clickLogin(Fragment fragment, boolean isMainFragment, Bundle bundle);
+        void clickRegister(Fragment fragment, boolean isMainFragment, Bundle bundle);
+        void clickLogout();
+
+        void moveFragment(Fragment fragment, boolean isMainFragment, Bundle bundle);
         void allFragmentClose();
+
+        void onBackPressed();
+        void exitApp();
     }
 }

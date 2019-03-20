@@ -29,8 +29,8 @@ public class Register_SuccessFragment extends Fragment {
         mBinding.btnAppStart.setOnClickListener(v -> {
             User user = User.getInstance();
             user.setUserState(true);
-            ((MainActivity)getActivity()).viewUpdate();
-            ((MainActivity)getActivity()).appBarIconChange(true);
+            ((MainActivity)getActivity()).updateView();
+            ((MainActivity)getActivity()).changeAppBarIcon(true);
             mMainPresenter.allFragmentClose();
         });
 

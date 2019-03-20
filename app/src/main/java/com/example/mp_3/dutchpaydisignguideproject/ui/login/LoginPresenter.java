@@ -37,8 +37,8 @@ public class LoginPresenter implements LoginContract.Presenter {
             if(userID.equals(user.getUserEmail()) && userPassword.equals(user.getUserPassword())) {
                 User user = User.getInstance();
                 user.setUserState(true);
-                ((MainActivity)mActivity).viewUpdate();
-                ((MainActivity)mActivity).appBarIconChange(true);
+                ((MainActivity)mActivity).updateView();
+                ((MainActivity)mActivity).changeAppBarIcon(true);
                 mView.loginSuccessFully();
             } else {
                 mView.loginFail();
