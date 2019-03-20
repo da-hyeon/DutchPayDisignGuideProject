@@ -25,7 +25,7 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
     private ImageView image_termsConditions[];
     private ImageView mAllViewImages[];
 
-    private MainContract.Presenter mMainPresenter;
+
     private Register_TermsConditionsAgreementContract.Presenter mPresenter;
 
     /**
@@ -44,37 +44,34 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
 
         //전체 동의 클릭
         mBinding.imageCompleteAgreement.setOnClickListener(v ->
-                mPresenter.allTermsConditionsButtonCheck(
-                        mPresenter.comparisonObjects(null, mBinding.imageCompleteAgreement, R.drawable.agree_round_on))
+            mPresenter.clickAllTOS(mBinding.imageCompleteAgreement, R.drawable.agree_round_on)
         );
 
         //약관 클릭
-        for(int i = 0; i < image_termsConditions.length; i++){
+        for (int i = 0; i < image_termsConditions.length; i++) {
             int finalI = i;
-            image_termsConditions[i].setOnClickListener(v-> {
-                mPresenter.termsConditionsButtonCheck(finalI , image_termsConditions[finalI], mPresenter.comparisonObjects(null, image_termsConditions[finalI], R.drawable.agree_on));
-                mPresenter.allChecked(mPresenter.comparisonObjects(image_termsConditions, null, R.drawable.agree_on));
-            });
+
+            image_termsConditions[i].setOnClickListener(v ->
+                mPresenter.clickTOS(finalI, image_termsConditions[finalI], R.drawable.agree_on)
+            );
         }
 
         //전체보기 클릭
         for (int i = 0; i < mAllViewImages.length; i++) {
             int finalI = i;
-            mAllViewImages[i].setOnClickListener(v -> {
-                mPresenter.allViewButtonClick(finalI);
-            });
+            mAllViewImages[i].setOnClickListener(v ->
+                mPresenter.clickAllView(finalI)
+            );
         }
 
         //회원가입 클릭
         mBinding.imageViewRegister.setOnClickListener(v ->
-                mPresenter.nextButtonClick(
-                        mPresenter.comparisonObjects(null, mBinding.imageCompleteAgreement, R.drawable.agree_round_on)
-                )
+            mPresenter.clickRegister()
         );
 
         //카카오 클릭
         mBinding.imageViewKakaogo.setOnClickListener(v ->
-                mPresenter.kakaoButtonClick(mPresenter.comparisonObjects(null, mBinding.imageCompleteAgreement, R.drawable.agree_round_on))
+                mPresenter.clickKakao()
         );
 
         return view;
@@ -84,9 +81,7 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
      * 객체생성 및 데이터초기화
      */
     private void initData() {
-
-        mMainPresenter = new MainPresenter(getContext(), getFragmentManager());
-        mPresenter = new Register_TermsConditionsAgreementPresenter(this, getContext(), getActivity());
+        mPresenter = new Register_TermsConditionsAgreementPresenter(this, getContext(), getActivity() , getFragmentManager());
 
         image_termsConditions = new ImageView[]{
                 mBinding.imageTermsConditions1,
@@ -106,50 +101,8 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
                 mBinding.viewAll6,
         };
 
-        //Check정보 받아오고 , Check 그려주고 , 모두 체크됨을 체크하기.
+        //Check 정보 받아옴.
         mPresenter.refreshData(getArguments());
-        mPresenter.initTermsConditionsButtonCheck(image_termsConditions);
-        mPresenter.allChecked(mPresenter.comparisonObjects(image_termsConditions, null, R.drawable.agree_on));
-    }
-
-    /**
-     * 약관 전체 동의 버튼 Update
-     */
-    @Override
-    public void changeAllTermsConditionsButton(boolean state) {
-        if (state) {
-            mBinding.imageCompleteAgreement.setImageResource(R.drawable.agree_round_on);
-        } else {
-            mBinding.imageCompleteAgreement.setImageResource(R.drawable.agree_round_off);
-        }
-    }
-
-    /**
-     * 약관 동의 버튼 Update
-     */
-    @Override
-    public void changeTermsConditionsButton(ImageView imageView, boolean state) {
-        if (state) {
-            imageView.setImageResource(R.drawable.agree_on);
-        } else {
-            imageView.setImageResource(R.drawable.agree_off);
-        }
-    }
-
-    /**
-     * 약관 동의 전체 Update
-     */
-    @Override
-    public void changeAllTermsConditions(boolean state) {
-        if (state) {
-            for (ImageView imageView : image_termsConditions) {
-                imageView.setImageResource(R.drawable.agree_on);
-            }
-        } else {
-            for (ImageView imageView : image_termsConditions) {
-                imageView.setImageResource(R.drawable.agree_off);
-            }
-        }
     }
 
     /**
@@ -168,22 +121,21 @@ public class Register_TermsConditionsAgreementFragment extends Fragment implemen
         Log.d(tag, content);
     }
 
-    /**
-     * Fragment 이동
-     */
     @Override
-    public void moveFragment() {
-        mMainPresenter.moveFragment(new Register_FormFragment(), false, null);
+    public void changeAllTOS(boolean state) {
+        if (state) {
+            mBinding.imageCompleteAgreement.setImageResource(R.drawable.agree_round_on);
+        } else {
+            mBinding.imageCompleteAgreement.setImageResource(R.drawable.agree_round_off);
+        }
     }
 
     @Override
-    public void moveAllView(Bundle bundle) {
-        mMainPresenter.moveFragment(new Register_ViewAllTermsConditionsFragment(), false, bundle);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initData();
+    public void changeTOS(int index, boolean state) {
+        if (state) {
+            image_termsConditions[index].setImageResource(R.drawable.agree_on);
+        } else {
+            image_termsConditions[index].setImageResource(R.drawable.agree_off);
+        }
     }
 }

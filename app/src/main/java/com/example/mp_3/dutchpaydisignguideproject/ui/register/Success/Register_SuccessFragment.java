@@ -14,25 +14,21 @@ import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainActivity;
 import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainContract;
 import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainPresenter;
 
-public class Register_SuccessFragment extends Fragment {
+public class Register_SuccessFragment extends Fragment implements Register_SuccessContract.View {
 
     private FragmentRegisterSuccessBinding mBinding;
-    private MainContract.Presenter mMainPresenter;
+    private Register_SuccessContract.Presenter mPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register__success, container, false);
         View view = mBinding.getRoot();
-        mMainPresenter = new MainPresenter(getContext(), getFragmentManager());
+        mPresenter = new Register_SuccessPresenter(getContext(), getFragmentManager(), getActivity());
 
-        mBinding.btnAppStart.setOnClickListener(v -> {
-            User user = User.getInstance();
-            user.setUserState(true);
-            ((MainActivity)getActivity()).updateView();
-            ((MainActivity)getActivity()).changeAppBarIcon(true);
-            mMainPresenter.allFragmentClose();
-        });
+        mBinding.btnAppStart.setOnClickListener(v ->
+            mPresenter.clickAppStart()
+        );
 
         return view;
     }
