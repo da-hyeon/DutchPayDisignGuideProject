@@ -15,8 +15,8 @@ public class Register_SuccessPresenter implements Register_SuccessContract.Prese
     private Activity mActivity;
     private User user;
 
-    public Register_SuccessPresenter(Context context , FragmentManager fragmentManager , Activity mActivity) {
-        mMainPresenter = new MainPresenter(context , fragmentManager);
+    public Register_SuccessPresenter( Activity mActivity, Context context ,FragmentManager fragmentManager) {
+        this.mMainPresenter =  new MainPresenter(context , fragmentManager);
         user = User.getInstance();
         this.mActivity = mActivity;
     }

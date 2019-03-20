@@ -10,18 +10,17 @@ import com.example.mp_3.dutchpaydisignguideproject.ui.register.Success.Register_
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Register_PaymentPasswordFormContractPresenter implements Register_PaymentPasswordFormContract.Presenter {
+public class Register_PaymentPasswordFormPresenter implements Register_PaymentPasswordFormContract.Presenter {
 
     private Register_PaymentPasswordFormContract.View mView;
     private MainContract.Presenter mMainPresenter;
     private String mPassword;
 
-    public Register_PaymentPasswordFormContractPresenter(Register_PaymentPasswordFormContract.View mView , Context mContext, FragmentManager mFragmentManager) {
+    public Register_PaymentPasswordFormPresenter(Register_PaymentPasswordFormContract.View mView, Context context ,FragmentManager fragmentManager) {
         this.mView = mView;
-        mMainPresenter = new MainPresenter(mContext , mFragmentManager);
+        this.mMainPresenter =  new MainPresenter(context , fragmentManager);
         mPassword = "";
     }
-
 
     @Override
     public void initRandomNumber() {

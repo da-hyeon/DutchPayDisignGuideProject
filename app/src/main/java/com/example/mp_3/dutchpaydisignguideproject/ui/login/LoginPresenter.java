@@ -11,6 +11,8 @@ import com.example.mp_3.dutchpaydisignguideproject.ui.login.LoginContract;
 import com.example.mp_3.dutchpaydisignguideproject.data.db.model.User;
 import com.example.mp_3.dutchpaydisignguideproject.R;
 import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainActivity;
+import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainContract;
+import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainPresenter;
 
 import java.util.Objects;
 
@@ -20,7 +22,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     private User user;
     private Context mContext;
     private Activity mActivity;
-
 
     public LoginPresenter(LoginContract.View mView, Context mContext , Activity Activity) {
         this.mView = mView;

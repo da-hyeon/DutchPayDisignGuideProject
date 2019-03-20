@@ -5,11 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.widget.ImageView;
 
-import com.example.mp_3.dutchpaydisignguideproject.R;
 import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainContract;
 import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainPresenter;
 import com.example.mp_3.dutchpaydisignguideproject.ui.register.TermsConditionsAgreement.Register_TermsConditionsAgreementFragment;
@@ -32,7 +30,7 @@ public class Register_ViewAllTermsConditionsPresenter implements Register_ViewAl
     public Register_ViewAllTermsConditionsPresenter(Register_ViewAllTermsConditionsContract.View mView, Context mContext, FragmentManager fragmentManager) {
         this.mView = mView;
         this.mContext = mContext;
-        mMainPresenter = new MainPresenter(mContext, fragmentManager);
+        this.mMainPresenter =  new MainPresenter(mContext , fragmentManager);
 
         //제목
         mTermsConditionsTitles = new String[]{

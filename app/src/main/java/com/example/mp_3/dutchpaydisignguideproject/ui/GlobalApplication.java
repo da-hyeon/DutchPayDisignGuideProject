@@ -17,6 +17,8 @@ public class GlobalApplication extends Application {
         KakaoSDK.init(new KakaoSDKAdapter());
     }
 
+
+
     public static GlobalApplication getGlobalApplicationContext() {
         return obj;
     }

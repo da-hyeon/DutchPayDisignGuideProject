@@ -36,12 +36,12 @@ public class Register_TermsConditionsAgreementPresenter implements Register_Term
     private boolean mAllTOS;
     private boolean mTOSCheckArray[];
 
-    public Register_TermsConditionsAgreementPresenter(Register_TermsConditionsAgreementContract.View mView, Context mContext, Activity mActivity, FragmentManager fragmentManager) {
+    public Register_TermsConditionsAgreementPresenter(Register_TermsConditionsAgreementContract.View mView, Context mContext, Activity mActivity ,FragmentManager fragmentManager) {
         this.mView = mView;
         this.mContext = mContext;
         this.mActivity = mActivity;
 
-        mMainPresenter = new MainPresenter(mContext, fragmentManager);
+        this.mMainPresenter =  new MainPresenter(mContext , fragmentManager);
 
         mTOSCheckArray = new boolean[6];
         mAllTOS = false;

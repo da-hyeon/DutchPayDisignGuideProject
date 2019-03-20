@@ -45,7 +45,7 @@ public class Register_ViewAllTermsConditionsFragment extends Fragment implements
      * 객체생성 및 데이터초기화
      */
     private void initData() {
-        mPresenter = new Register_ViewAllTermsConditionsPresenter(this , getContext() , getFragmentManager());
+        mPresenter = new Register_ViewAllTermsConditionsPresenter(this , getContext() , getFragmentManager() );
         mPresenter.getData(getArguments());
     }
 

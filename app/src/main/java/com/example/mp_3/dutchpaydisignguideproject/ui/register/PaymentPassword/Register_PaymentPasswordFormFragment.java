@@ -60,7 +60,7 @@ public class Register_PaymentPasswordFormFragment extends Fragment implements Re
      */
     private void initData() {
 
-        mPresenter = new Register_PaymentPasswordFormContractPresenter(this , getContext(), getFragmentManager());
+        mPresenter = new Register_PaymentPasswordFormPresenter(this , getContext() , getFragmentManager());
 
 
         //숫자데이터

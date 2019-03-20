@@ -25,7 +25,7 @@ public class Register_FormFragment extends Fragment implements Register_FormCont
         FragmentRegisterFormBinding mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register__form, container, false);
         View view = mBinding.getRoot();
 
-        mPresenter = new Register_FormPresenter(getContext(), getFragmentManager());
+        mPresenter = new Register_FormPresenter(getContext() , getFragmentManager());
 
         //다음 버튼 클릭
         mBinding.btnNext.setOnClickListener(v ->

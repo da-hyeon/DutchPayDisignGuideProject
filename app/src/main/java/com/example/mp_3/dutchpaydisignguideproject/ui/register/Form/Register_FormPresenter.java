@@ -11,8 +11,8 @@ public class Register_FormPresenter implements Register_FormContract.Presenter {
 
     private MainContract.Presenter mMainPresenter;
 
-    public Register_FormPresenter(Context context, FragmentManager fragmentManager) {
-        this.mMainPresenter = new MainPresenter(context , fragmentManager);
+    public Register_FormPresenter(Context context , FragmentManager fragmentManager) {
+        this.mMainPresenter =  new MainPresenter(context , fragmentManager);
     }
 
     @Override

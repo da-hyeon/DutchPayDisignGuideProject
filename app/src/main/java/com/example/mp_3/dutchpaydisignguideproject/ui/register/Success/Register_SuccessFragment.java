@@ -8,11 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mp_3.dutchpaydisignguideproject.R;
-import com.example.mp_3.dutchpaydisignguideproject.data.db.model.User;
 import com.example.mp_3.dutchpaydisignguideproject.databinding.FragmentRegisterSuccessBinding;
-import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainActivity;
-import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainContract;
-import com.example.mp_3.dutchpaydisignguideproject.ui.main.MainPresenter;
 
 public class Register_SuccessFragment extends Fragment implements Register_SuccessContract.View {
 
@@ -24,7 +20,7 @@ public class Register_SuccessFragment extends Fragment implements Register_Succe
                              Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register__success, container, false);
         View view = mBinding.getRoot();
-        mPresenter = new Register_SuccessPresenter(getContext(), getFragmentManager(), getActivity());
+        mPresenter = new Register_SuccessPresenter( getActivity() , getContext() , getFragmentManager());
 
         mBinding.btnAppStart.setOnClickListener(v ->
             mPresenter.clickAppStart()
